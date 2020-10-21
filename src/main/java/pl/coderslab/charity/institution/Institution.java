@@ -4,14 +4,16 @@ package pl.coderslab.charity.institution;
 import lombok.Getter;
 import lombok.Setter;
 import pl.coderslab.charity.category.Category;
+import pl.coderslab.charity.donation.Donation;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name= Category.TABLE)
+@Table(name= Institution.TABLE)
 public class Institution {
     public final static String TABLE = "institution";
 
@@ -26,6 +28,9 @@ public class Institution {
     @NotBlank
     @Column(nullable = false)
     private String description;
+
+    @OneToMany(mappedBy = "institution")
+    private List<Donation> donations;
 
 
 }

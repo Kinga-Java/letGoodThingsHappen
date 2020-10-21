@@ -19,9 +19,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name= Category.TABLE)
+@Table(name= Donation.TABLE)
 public class Donation {
-    public final static String TABLE = "category";
+    public final static String TABLE = "donations";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class Donation {
     @Min(value = 1)
     private Integer quantity;
 
-    @OneToMany
+    @ManyToMany
     private List<Category> categories;
 
-    @OneToOne
+    @ManyToOne
     private Institution institution;
 
     @NotBlank

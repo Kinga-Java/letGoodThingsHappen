@@ -3,16 +3,18 @@ package pl.coderslab.charity.category;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.charity.donation.Donation;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name=Category.TABLE)
 public class Category {
-    public final static String TABLE = "category";
+    public final static String TABLE = "categories";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +23,7 @@ public class Category {
     @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Donation> donations;
 }
