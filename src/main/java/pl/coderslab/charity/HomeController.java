@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.donation.DonationRepository;
-import pl.coderslab.charity.institution.InstitutionRepository;
 import pl.coderslab.charity.institution.InstitutionService;
 
 @RequiredArgsConstructor
@@ -17,9 +16,9 @@ public class HomeController {
 
     @RequestMapping("/")
     public String homeAction(Model model){
-        model.addAttribute("institutions", institutionService.institutions());
+        model.addAttribute("institutions", institutionService.getAll());
         model.addAttribute("donationQuantitySum", donationRepository.donationQuantitiesSum());
-        model.addAttribute("donationQuantity", donationRepository.donationQuantity());
+        model.addAttribute("donationQuantity", donationRepository.count());
         return "index";
     }
 }
