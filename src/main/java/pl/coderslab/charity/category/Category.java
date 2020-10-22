@@ -23,7 +23,4 @@ public class Category {
     @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "categories")
-    private List<Donation> donations;
 }

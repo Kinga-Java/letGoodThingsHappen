@@ -29,8 +29,5 @@ public class Institution {
     @Column(nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "institution")
-    private List<Donation> donations;
-
 
 }
