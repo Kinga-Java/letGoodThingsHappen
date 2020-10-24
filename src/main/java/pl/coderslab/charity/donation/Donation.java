@@ -33,11 +33,10 @@ public class Donation {
 
     @ManyToMany
     private List<Category> categories;
-
     @ManyToOne
     private Institution institution;
 
-    @NotBlank
+     @NotBlank
     private String street;
 
     @NotBlank
@@ -46,12 +45,11 @@ public class Donation {
     @NotBlank
     private String zipCode;
 
-    @NotBlank
-    @Future
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
-    @NotBlank
+
     @DateTimeFormat(pattern = "H:mm")
     private LocalTime pickUpTime;
 
