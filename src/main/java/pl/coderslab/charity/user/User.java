@@ -1,9 +1,6 @@
 package pl.coderslab.charity.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,6 +13,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Table(name = User.TABLE)
 public class User {
     public final static String TABLE = "user";
@@ -43,7 +41,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private Boolean active;
+    private Boolean enabled;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
