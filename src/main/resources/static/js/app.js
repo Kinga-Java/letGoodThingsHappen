@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
    * Switching between form steps
    */
   class FormSteps {
+
     constructor(form) {
       this.$form = form;
       this.$next = form.querySelectorAll(".next-step");
@@ -115,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
     init() {
       this.events();
       this.updateForm();
+      this.summary();
     }
 
     /**
@@ -144,6 +146,48 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
+     * summary
+     */
+    summary(currentStep){
+      let summaryTextWhat;
+
+      let categories = document.querySelector("#categories:checked").nextElementSibling.nextElementSibling.firstChild.textContent.toString();
+      console.log(categories);
+
+      let institutionName = document.querySelector("#institution:checked").nextElementSibling.nextElementSibling.firstElementChild.firstChild.textContent.toString();
+      console.log(institutionName);
+
+
+      let quantity = document.getElementById("quantity").value;
+      let street = document.getElementById("street").value;
+      let city = document.getElementById("city").value;
+      let zipCode = document.getElementById("zipCode").value;
+      let pickUpDate = document.getElementById("pickUpDate").value;
+      let pickUpTime= document.getElementById("pickUpTime").value;
+      let pickUpComment = document.getElementById("pickUpComment").value;
+
+      if(this.quantity == 1) {
+        summaryTextWhat = `${quantity} worek z kategorii: ${categories}`;
+      }else if(this.quantity == 2 | this.quantity == 3|this.quantity == 4){summaryTextWhat = `${quantity} worki z kategorii: ${categories}`;
+      } else {
+        summaryTextWhat = `${quantity} worków z kategorii: ${categories}`;
+      }
+      let summaryTextToWhere = `Dla: ${institutionName}`;
+      let summaryFirstSection = $(this.slides[currentStep + 3]).find("span.summary--text");
+      let summarySecondSection = $(this.slides[currentStep + 3]).find("div.form-section--column li");
+
+      summaryFirstSection.eq(0).text(summaryTextWhat);
+      summaryFirstSection.eq(1).text(summaryTextToWhere);
+
+      summarySecondSection.eq(0).text(street);
+      summarySecondSection.eq(1).text(city);
+      summarySecondSection.eq(2).text(zipCode);
+      summarySecondSection.eq(3).text(pickUpDate);
+      summarySecondSection.eq(4).text(pickUpTime);
+      summarySecondSection.eq(5).text(pickUpComment);
+    }
+
+    /**
      * Update form front-end
      * Show next or previous section etc.
      */
@@ -163,7 +207,9 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
-      // TODO: get data from inputs and show them in summary
+      if(this.currentStep == 5){
+        this.summary(this.currentStep);
+      }
     }
 
   }
