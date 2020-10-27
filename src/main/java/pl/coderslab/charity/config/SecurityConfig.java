@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,14 +17,15 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
+    private final SuccesHandler succesHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("SELECT email, password, enabled FROM user WHERE email = ?")
-                .authoritiesByUsernameQuery("SELECT email, role_name FROM user WHERE email = ?");
+                .usersByUsernameQuery("SELECT email, password, active FROM user WHERE email = ?")
+                .authoritiesByUsernameQuery("SELECT email, role FROM user WHERE email = ?");
     }
 
     @Bean
@@ -49,12 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/upload/**").permitAll()
+                .antMatchers("/donation").authenticated()
                 .antMatchers("/").permitAll()
                 .antMatchers("/admiadmin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/", false)
+                .successHandler(succesHandler)
                 .and()
                 .logout()
                 .logoutUrl("/logout")

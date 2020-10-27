@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -14,18 +16,24 @@ import java.util.HashSet;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     public User findByEmail(String email){
         return userRepository.findUserByEmail(email);
     }
 
+    public Optional<User> findUserById(long id){
+        return userRepository.findById(id);
+    }
+
+    public List<User> getAll(){
+        return userRepository.findAll();
+    }
+
     public void registerUser(User user) {
+        user.setRole(Role.USER.toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        user.setEnabled(true);
+        user.setActive(true);
         userRepository.save(user);
     }
 
