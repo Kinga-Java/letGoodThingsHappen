@@ -10,12 +10,12 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 
     @Autowired
     private final User user;
-    private final Boolean enabled;
+    private final Boolean active;
 
-    public CurrentUser(String username, String password, Collection<? extends GrantedAuthority> authorities, User user, Boolean enabled) {
+    public CurrentUser(String username, String password, Collection<? extends GrantedAuthority> authorities, User user, Boolean active) {
         super(username, password, authorities);
         this.user = user;
-        this.enabled = enabled;
+        this.active = active;
     }
 
     public User getUser() {

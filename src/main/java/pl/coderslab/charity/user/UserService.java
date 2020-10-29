@@ -31,10 +31,21 @@ public class UserService {
     }
 
     public void registerUser(User user) {
-        user.setRole(Role.USER.toString());
+        user.setRole(Role.ROLE_USER.toString());;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
         userRepository.save(user);
     }
 
+    public void createUserAdmin() {
+        User userAdmin = new User();
+        userAdmin.setFirstName("Admin");
+        userAdmin.setLastName("Admin");
+        userAdmin.setActive(true);
+        userAdmin.setPassword(passwordEncoder.encode("adminadmin"));
+        userAdmin.setRepeatPassword("adminadmin");
+        userAdmin.setRole(Role.ROLE_ADMIN.toString());
+        userAdmin.setEmail("admin@gmail.com");
+        userRepository.save(userAdmin);
+    }
 }

@@ -41,10 +41,10 @@ public class SuccesHandler implements AuthenticationSuccessHandler {
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals(Role.ADMIN.toString())) {
+            if (grantedAuthority.getAuthority().equals(Role.ROLE_ADMIN.toString())) {
                 isAdmin = true;
                 break;
-            } else if (grantedAuthority.getAuthority().equals(Role.USER.toString())) {
+            } else if (grantedAuthority.getAuthority().equals(Role.ROLE_USER.toString())) {
                 isUser = true;
                 break;
             }
@@ -52,7 +52,7 @@ public class SuccesHandler implements AuthenticationSuccessHandler {
         if (isUser) {
             return "/donation";
         } else if (isAdmin) {
-            return "/admin";
+            return "/admin/home";
         } else {
             throw new IllegalStateException();
         }

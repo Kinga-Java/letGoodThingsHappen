@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title th:text="#{app.title}">Nazwa aplikacji</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header th:include="adminHeader.html :: header" class="header--main-page"></header>
+
+
+
+<section class="form--steps">
+    <div class="form--steps-container">
+        <div class="form--steps-counter"><span hidden="hidden"></span></div>
+        <form th:action="@{/admin/institution/delete(id=${institution.id})}" method="post">
+            <div data-step="1">
+                <h3>Czy jesteś pewien/pewna, że chcesz usunąć instytucję: "<span th:text="${institution.name}"></span><span>" ?</span></h3>
+                <input type="hidden" name="id" th:value="${institution.id}">
+
+                <div class="form-group form-group--buttons">
+                    <button type="submit" class="btn">Potwierdź</button>
+                    <button type="button" class="btn"><a th:href="@{/admin/institution/list}">Powrót</a></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<footer th:include="footer.html :: footer"></footer>
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
+</body>
+</html>

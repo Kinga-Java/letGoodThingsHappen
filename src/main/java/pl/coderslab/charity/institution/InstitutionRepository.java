@@ -11,4 +11,5 @@ import java.util.List;
 @Transactional
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
     List<Institution> findAll();
+    Institution findById(long id);
 }

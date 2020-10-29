@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title th:text="#{app.title}">Nazwa aplikacji</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header th:include="adminHeader.html :: header" class="header--main-page"></header>
+
+
+
+
+<section class="login-page">
+    <h2>Edytuj fundację</h2>
+    <form th:action="@{/admin/institution/{id}/edit(id=${institution.id})}" method="post" th:object="${institution}">
+        <div class="form-group">
+            <input name="name" placeholder="Nazwa" th:field="*{name}"/>
+        </div>
+        <div class="form-group">
+            <textarea rows="5" name="description" th:field="*{description}" placeholder="Opis"/>
+        </div>
+        <div class="hidden-input">
+            <input type="hidden" name="id" th:field="*{id}">
+        </div>
+        <div class="form-group form-group--buttons">
+            <button class="btn" type="submit" id="btn-submit">Zapisz</button>
+        </div>
+    </form>
+</section>
+
+<footer th:include="footer.html :: footer"></footer>
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
+</body>
+</html>

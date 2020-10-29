@@ -1,6 +1,7 @@
 package pl.coderslab.charity.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -43,16 +44,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(staticResources).permitAll()
-                .antMatchers("/admin").permitAll()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .antMatchers("/createadmin").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/upload/**").permitAll()
                 .antMatchers("/donation").authenticated()
+                .antMatchers("/admin/institution/add").authenticated()
                 .antMatchers("/").permitAll()
-                .antMatchers("/admiadmin/**").hasRole("ADMIN")
+              /*  .antMatchers("/admin/home").hasRole("ADMIN")
+                .antMatchers("/admin/institution/add").hasRole("ADMIN")
+                .antMatchers("/admin/institution/list").hasRole("ADMIN")*/
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
