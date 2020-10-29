@@ -29,5 +29,4 @@ public class Institution {
     @Column(nullable = false)
     private String description;
 
-
 }

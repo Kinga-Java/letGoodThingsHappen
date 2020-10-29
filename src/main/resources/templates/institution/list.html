@@ -34,10 +34,13 @@
 
         <ul class="help--slides-items">
             <li th:each="institution : ${institutions}">
+                <form th:object="institution" >
                 <div class="col">
                     <div class="title" th:text="${institution.name}"></div>
+                    <div class="title"><input th:field="*{name}"/></div>
                     <div class="subtitle" th:text="${institution.description}"></div>
                 </div>
+                </form>
 
                 <div>
                     <button type="button" class="btn"><a th:href="@{/admin/institution/{id}/edit(id=${institution.id})}">Edytuj</a></button>
