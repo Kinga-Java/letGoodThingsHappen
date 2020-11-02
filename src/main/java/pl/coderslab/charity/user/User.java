@@ -30,7 +30,7 @@ public class User {
     @Size(min = 8)
     private String password;
 
-    @NotBlank
+
     @Transient
     private String repeatPassword;
 

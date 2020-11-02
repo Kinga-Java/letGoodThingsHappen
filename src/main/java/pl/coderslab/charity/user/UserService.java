@@ -30,6 +30,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> getAllAdmins(String role){
+        return userRepository.findAllByRole(role);
+    }
+    public User findUserByIdAndRole(long id, String role){
+        return userRepository.findUserByIdAndRole(id, role);
+    }
+
     public void registerUser(User user) {
         user.setRole(Role.ROLE_USER.toString());;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -37,7 +44,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void createUserAdmin() {
+    public void createFirstUserAdmin() {
         User userAdmin = new User();
         userAdmin.setFirstName("Admin");
         userAdmin.setLastName("Admin");
@@ -47,5 +54,26 @@ public class UserService {
         userAdmin.setRole(Role.ROLE_ADMIN.toString());
         userAdmin.setEmail("admin@gmail.com");
         userRepository.save(userAdmin);
+    }
+
+    public void createAdmin(User user) {
+        user.setRole(Role.ROLE_ADMIN.toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive(true);
+        userRepository.save(user);
+    }
+
+    public void updateUser(User user) {
+        user.setActive(true);
+        userRepository.save(user);
+    }
+
+    public void deleteUser(User user){
+        user.setActive(false);
+        userRepository.save(user);
+    }
+
+    public void deleteAdminById(long id){
+        userRepository.deleteById(id);
     }
 }
