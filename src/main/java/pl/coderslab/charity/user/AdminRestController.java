@@ -18,7 +18,6 @@ import java.util.Optional;
 public class AdminRestController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
