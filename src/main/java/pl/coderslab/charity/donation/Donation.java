@@ -1,8 +1,7 @@
 package pl.coderslab.charity.donation;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.institution.Institution;
@@ -19,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name= Donation.TABLE)
+@Table(name= Donation.TABLE) @NoArgsConstructor @AllArgsConstructor @Builder
 public class Donation {
     public final static String TABLE = "donations";
 
